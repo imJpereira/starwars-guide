@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
-import { FlatList, Text } from "react-native";
+import { FlatList, StyleSheet } from "react-native";
 import axios from 'axios';
+import CharacterCard from "../components/CharactersCard";
 
-export default function HomeScreen() {
+export default function HomeScreen({navigation}) {
   
     const [characters, setCharacters] = useState([]);
 
@@ -17,6 +18,11 @@ export default function HomeScreen() {
             setLoading(false);
         }
     }
+
+    function extractCharacterId(url) {
+        const parts = url.split("/");
+        return parts[parts.length - 1];
+      }
  
     useEffect(() => {
         fetchCharacters();
@@ -29,8 +35,22 @@ export default function HomeScreen() {
             numColumns={1}
             keyExtractor={(item) => item.url}
             renderItem={({item}) => {
-               return <Text>{item.name}</Text>
+               return <CharacterCard
+                        character={{...item}} 
+                        onPress={() => navigation.navigate("Detalhes", {
+                            character: {...item, id: extractCharacterId(item.url)}
+                        })}     
+                     />
             }}
+            contentContainerStyle={styles.list}
         />
     );
 }
+
+const styles = StyleSheet.create({
+    list : {
+        paddingHorizontal: 10,
+        paddingTop: 20,
+        paddingBottom: 20,
+    }
+});
