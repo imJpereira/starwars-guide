@@ -1,7 +1,8 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useLayoutEffect } from "react";
 import { FlatList, StyleSheet } from "react-native";
 import axios from 'axios';
 import CharacterCard from "../components/CharactersCard";
+import AboutIcon from "../components/AboutIcon";
 
 export default function HomeScreen({navigation}) {
   
@@ -27,6 +28,12 @@ export default function HomeScreen({navigation}) {
     useEffect(() => {
         fetchCharacters();
     }, []);
+
+    useLayoutEffect(() => {
+        navigation.setOptions({
+            headerRight: () => { return <AboutIcon handleNavigation={() => navigation.navigate("About")}/>}
+        })
+    }, [])
 
     return (
 

@@ -30,9 +30,30 @@ export default function DetailsScreen({ navigation, route }) {
     
     return (
         <View style={styles.detailContainer}>
-            <Text>
-               {characterApi.name} 
-            </Text>
+            <View style={styles.infoContainer}>
+                <Text>
+                Name: {characterApi.name} 
+                </Text>
+                <Text>
+                Height: {characterApi.height} 
+                </Text>
+                <Text>
+                Mass: {characterApi.mass} 
+                </Text>
+                <Text>
+                Hair Color: {characterApi.hair_color} 
+                </Text>
+                <Text>
+                Skin Color: {characterApi.skin_color} 
+                </Text>
+                <Text>
+                Eye Color: {characterApi.eye_color} 
+                </Text>
+                <Text>
+                Gender: {characterApi.gender} 
+                </Text>
+            </View>
+
             <View style={styles.buttonContainer}>
                 
                 <Pressable 
@@ -87,11 +108,18 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.25,
         shadowRadius: 3.84,
       },
-      buttonText: {
+    buttonText: {
         color: 'white',
         fontSize: 16,
         fontWeight: 'bold',
         textAlign: 'center',
-      },
+    },
+    image: {
+        width: 300,
+        height: 300
+    },
+    infoContainer: {
+        textAlign: "left"
+    }
 
 })

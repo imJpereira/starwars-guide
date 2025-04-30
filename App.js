@@ -1,14 +1,17 @@
-import { NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { StyleSheet, Text, View } from 'react-native';
 import HomeScreen from './screens/HomeScreen';
 import DetailsScreen from './screens/DetailsScreen';
 import ShipsScreen from './screens/ShipsScreen';
 import MovieScreen from './screens/MovieScreen';
+import { StyleSheet } from 'react-native';
+import AboutScreen from './screens/AboutScreen';
+import AboutIcon from './components/AboutIcon';
 
 const Stack = createNativeStackNavigator();
 
 export default function App() {
+
   return (
     <NavigationContainer>
       <Stack.Navigator>
@@ -16,7 +19,7 @@ export default function App() {
           name="Personagens"
           options={{
             headerBackTitle: "Personagens",
-            headerTitleAlign: "center"
+            headerTitleAlign: "center",
           }}
           component={HomeScreen}
         >
@@ -51,8 +54,17 @@ export default function App() {
           component={MovieScreen}
         >
         </Stack.Screen>
-        
 
+        <Stack.Screen
+          name="About"
+          options={{
+            headerBackTitle: "About",
+            headerTitleAlign: "center"
+          }}
+          component={AboutScreen}
+        >
+        </Stack.Screen>
+      
       </Stack.Navigator>
     </NavigationContainer>
   );
