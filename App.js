@@ -59,7 +59,7 @@ export default function App() {
           name="About"
           options={{
             headerBackTitle: "About",
-            headerTitleAlign: "center"
+            headerTitleAlign: "center",
           }}
           component={AboutScreen}
         >
