@@ -9,7 +9,7 @@ export default function CharacterCard({character, onPress}) {
             onPress={onPress}
         >
             <View style={styles.card}>
-                <Text>{character.name}</Text>
+                <Text style={styles.characterText}>{character.name}</Text>
             </View>
         </TouchableOpacity>
     );
@@ -21,9 +21,10 @@ const styles = StyleSheet.create({
     },
 
     card: {
-        backgroundColor:"#c3c3c3",
+        backgroundColor:"#DFDFDF",
         marginBottom: 5,
         padding: 15,
         borderRadius: 8,
-    }
+    },
+    
 });

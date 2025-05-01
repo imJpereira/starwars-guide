@@ -1,14 +1,15 @@
 import axios from "axios";
-import { registerRootComponent } from "expo";
-import { useEffect, useState } from "react";
-import { View, Text, StyleSheet, Image, Pressable } from "react-native";
+import { useEffect, useLayoutEffect, useState } from "react";
+import { View, Text, StyleSheet, FlatList, Pressable } from "react-native";
+import CharacterInfo from "../components/CharacterInfo";
+import PrimaryButton from "../components/PrimaryButton";
 
 
 export default function DetailsScreen({ navigation, route }) {
     const { character } = route.params;
 
     const [characterApi,  setCharacterApi] = useState([]);
-
+      
     const fetchCharacterById = async (id) => {
         try {
             const response = await axios.get(`https://swapi.info/api/people/${id}`)
@@ -16,7 +17,7 @@ export default function DetailsScreen({ navigation, route }) {
         } catch (error) {
             console.log(error);
         } 
-
+        
     }
 
     function extractCharacterId(url) {
@@ -30,52 +31,18 @@ export default function DetailsScreen({ navigation, route }) {
     
     return (
         <View style={styles.detailContainer}>
-            <View style={styles.infoContainer}>
-                <Text>
-                Name: {characterApi.name} 
-                </Text>
-                <Text>
-                Height: {characterApi.height} 
-                </Text>
-                <Text>
-                Mass: {characterApi.mass} 
-                </Text>
-                <Text>
-                Hair Color: {characterApi.hair_color} 
-                </Text>
-                <Text>
-                Skin Color: {characterApi.skin_color} 
-                </Text>
-                <Text>
-                Eye Color: {characterApi.eye_color} 
-                </Text>
-                <Text>
-                Gender: {characterApi.gender} 
-                </Text>
-            </View>
+                
+            <CharacterInfo characterInfo={characterApi} />
 
             <View style={styles.buttonContainer}>
                 
-                <Pressable 
-                    style={styles.button}
-                    onPress={() => navigation.navigate("Naves", {
+                <PrimaryButton onPress={() => navigation.navigate("Naves", {
                         character: {...characterApi, id: extractCharacterId(characterApi.url)}
-                    })}
-                > 
-                    <Text style={styles.buttonText}>
-                        Naves
-                    </Text>
-                </Pressable>
-                <Pressable 
-                    style={styles.button}
-                    onPress={() => navigation.navigate("Filmes", {
+                    })} caption={"Naves"}/>
+
+                <PrimaryButton onPress={() => navigation.navigate("Filmes", {
                         character: {...characterApi, id: extractCharacterId(characterApi.url)}
-                    })}
-                >
-                    <Text style={styles.buttonText}>
-                        Filmes
-                    </Text>
-                </Pressable>
+                    })} caption={"Filmes"}/>
             
             </View>
         </View>
@@ -86,40 +53,22 @@ const styles = StyleSheet.create({
 
     detailContainer: {
         flex: 1,
-        alignItems: "center"
+        alignItems: "center",
+        // backgroundColor: '#c3c3c3'
     },
     buttonContainer: {
         flexDirection: 'row',
         justifyContent: 'space-between', 
         alignItems: 'center', 
         paddingHorizontal: 5, 
-        backgroundColor: '#f0f0f0',  
+        // backgroundColor: '#f0f0f0',  
         paddingTop: 10, 
         gap: 5
-    },
-    button: {
-        backgroundColor: '#e74c3c', 
-        paddingVertical: 10,
-        paddingHorizontal: 20,
-        borderRadius: 5,
-        elevation: 3, // Sombra no Android
-        shadowColor: '#000', // Sombra no iOS
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.25,
-        shadowRadius: 3.84,
-      },
-    buttonText: {
-        color: 'white',
-        fontSize: 16,
-        fontWeight: 'bold',
-        textAlign: 'center',
     },
     image: {
         width: 300,
         height: 300
     },
-    infoContainer: {
-        textAlign: "left"
-    }
+
 
 })
